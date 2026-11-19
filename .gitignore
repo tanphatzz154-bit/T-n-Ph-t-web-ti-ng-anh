@@ -1,0 +1,5 @@
+node_modules/
+*.log
+.sites-runtime/
+.env*
+!.env.example

@@ -1,0 +1,143 @@
+/* Slow underwater light, kept behind every learning control and video. */
+.ocean-motion {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  overflow: clip;
+  pointer-events: none;
+  user-select: none;
+  contain: paint;
+  opacity: .72;
+}
+.ocean-light,
+.ocean-ripples,
+.ocean-bubbles { position: absolute; inset: 0; pointer-events: none; }
+.ocean-light {
+  inset: -12% -18%;
+  transform-origin: 80% 0;
+  background:
+    linear-gradient(112deg, transparent 37%, rgba(185, 246, 255, .12) 42%, transparent 47%),
+    linear-gradient(119deg, transparent 54%, rgba(194, 250, 255, .22) 58%, transparent 64%),
+    linear-gradient(124deg, transparent 68%, rgba(178, 242, 255, .15) 72%, transparent 78%);
+  animation: ocean-sunlight 22s ease-in-out infinite alternate;
+}
+.ocean-ripples {
+  /* The fixed mesh is moved as a layer, without repainting animated filters. */
+  --water-mesh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='680' height='480' viewBox='0 0 680 480'%3E%3Cg fill='none' stroke='%23c4f7ff' stroke-width='2'%3E%3Cpath d='M-60 42Q45 110 120 44T290 64T480 42T740 78M-50 158Q43 100 135 165T330 150T515 177T750 135M-60 286Q50 355 149 288T330 301T524 274T750 322M-50 419Q55 356 155 418T355 431T546 405T750 448'/%3E%3Cpath d='M62-50Q-10 48 64 126T54 289T81 530M220-50Q295 55 218 145T243 325T205 530M406-50Q330 39 408 147T385 308T429 530M587-50Q661 60 590 167T608 338T581 530'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: .28;
+}
+.ocean-ripples::before,
+.ocean-ripples::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background-image: var(--water-mesh);
+  background-size: 680px 480px;
+  background-repeat: repeat;
+  transform-origin: 65% 65%;
+}
+.ocean-ripples::before {
+  opacity: .72;
+  transform: rotate(-12deg) scaleY(.68);
+  animation: ocean-caustic-near 24s ease-in-out infinite alternate;
+}
+.ocean-ripples::after {
+  opacity: .38;
+  background-size: 850px 600px;
+  transform: rotate(11deg) scaleY(.82);
+  animation: ocean-caustic-far 31s ease-in-out -12s infinite alternate;
+}
+.ocean-bubbles i {
+  --drift: 18px;
+  position: absolute;
+  left: 3%;
+  bottom: -20px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(219, 252, 255, .62);
+  background: radial-gradient(circle at 30% 25%, #e8fdff99, #b0eaff08 58%);
+  opacity: 0;
+  animation: ocean-bubble-rise 34s linear infinite;
+}
+.ocean-bubbles i:nth-child(2) { left: 16%; width: 4px; height: 4px; --drift: -15px; animation-duration: 29s; animation-delay: -17s; }
+.ocean-bubbles i:nth-child(3) { left: 38%; width: 6px; height: 6px; --drift: 28px; animation-duration: 38s; animation-delay: -9s; }
+.ocean-bubbles i:nth-child(4) { left: 64%; width: 4px; height: 4px; --drift: -22px; animation-duration: 31s; animation-delay: -24s; }
+.ocean-bubbles i:nth-child(5) { left: 84%; width: 8px; height: 8px; --drift: 18px; animation-duration: 36s; animation-delay: -14s; }
+.ocean-bubbles i:nth-child(6) { left: 97%; width: 5px; height: 5px; --drift: -24px; animation-duration: 33s; animation-delay: -6s; }
+
+/* A broad reflection crosses the glass hero; the copy remains stationary. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -25% -40% -25% 40%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(112deg, transparent 30%, rgba(177, 246, 255, .16) 43%, rgba(228, 253, 255, .29) 48%, rgba(177, 246, 255, .1) 55%, transparent 69%);
+  transform: translateX(-14%) rotate(-4deg);
+  animation: ocean-glass-reflection 18s ease-in-out infinite alternate;
+}
+.topbar .motion-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(206, 244, 255, .35);
+  background: rgba(178, 232, 250, .1);
+  color: #e6f8ff;
+  font-size: .8125rem;
+  padding: 8px 10px;
+}
+.topbar .motion-toggle:hover { background: rgba(178, 232, 250, .21); }
+.topbar .motion-toggle[aria-pressed='true'] { border-color: rgba(206, 244, 255, .65); background: rgba(178, 232, 250, .19); }
+.motion-toggle svg { width: 18px; height: 18px; }
+
+@keyframes ocean-sunlight {
+  0% { transform: translate3d(-2%, -1%, 0) rotate(-3deg); opacity: .65; }
+  50% { opacity: 1; }
+  100% { transform: translate3d(3%, 2%, 0) rotate(3deg); opacity: .75; }
+}
+@keyframes ocean-caustic-near {
+  0% { transform: translate3d(-2%, -1%, 0) rotate(-12deg) scale(1, .68); opacity: .58; }
+  55% { opacity: .85; }
+  100% { transform: translate3d(3%, 3%, 0) rotate(-8deg) scale(1.07, .74); opacity: .68; }
+}
+@keyframes ocean-caustic-far {
+  0% { transform: translate3d(2%, 2%, 0) rotate(11deg) scale(1, .82); }
+  100% { transform: translate3d(-4%, -2%, 0) rotate(7deg) scale(1.08, .9); }
+}
+@keyframes ocean-bubble-rise {
+  0% { transform: translate3d(0, 0, 0) scale(.75); opacity: 0; }
+  12% { opacity: .5; }
+  75% { opacity: .3; }
+  100% { transform: translate3d(var(--drift), -106vh, 0) scale(1.12); opacity: 0; }
+}
+@keyframes ocean-glass-reflection {
+  0% { transform: translate3d(-14%, 0, 0) rotate(-4deg); opacity: .45; }
+  60% { opacity: .85; }
+  100% { transform: translate3d(22%, 3%, 0) rotate(3deg); opacity: .55; }
+}
+
+body[data-page='phat'] .ocean-motion { opacity: .42; }
+body[data-motion='off'] .ocean-motion { display: none; }
+body[data-motion='off'] .hero::before { display: none; animation: none; }
+body[data-hidden='true'] .ocean-light,
+body[data-hidden='true'] .ocean-ripples::before,
+body[data-hidden='true'] .ocean-ripples::after,
+body[data-hidden='true'] .ocean-bubbles i,
+body[data-hidden='true'] .hero::before { animation-play-state: paused; }
+@media (max-width: 650px) {
+  .ocean-motion { opacity: .57; }
+  .ocean-ripples { opacity: .21; }
+  .ocean-bubbles i:nth-child(3), .ocean-bubbles i:nth-child(4) { display: none; }
+  .motion-toggle .motion-label { display: none; }
+  .topbar .motion-toggle { padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ocean-motion, .hero::before { display: none !important; }
+  .ocean-motion *, .ocean-motion *::before, .ocean-motion *::after, .hero::before { animation: none !important; }
+}
