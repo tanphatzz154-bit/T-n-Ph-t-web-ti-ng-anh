@@ -32,6 +32,10 @@ Bản GitHub Pages được xuất từ website Sites, giữ nguyên nội dung 
 
 https://tanphatzz154-bit.github.io/T-n-Ph-t-web-ti-ng-anh/
 
+Link mở ngay video, kể cả lần đầu truy cập: https://tanphatzz154-bit.github.io/T-n-Ph-t-web-ti-ng-anh/?video=MKsNBLssYyM
+
+Tham số `video` hợp lệ mở thẳng mục Tấn Phát và chọn đúng video, ưu tiên hơn trang đã lưu. Video chia sẻ không được tự thêm vào danh sách cá nhân và không tự phát.
+
 GitHub Pages dùng nhánh `main`, thư mục `/docs`. Cập nhật các tệp trong `docs/` để cập nhật website. Không cần cài thư viện hoặc chạy build.
 
 Mỗi người có tiến độ học riêng trong trình duyệt. Khi chuyển từ trang Sites, vào **Cài đặt** ở trang cũ để xuất bản sao lưu, rồi nhập trên trang GitHub Pages. Bản thu âm cần tải xuống riêng; dữ liệu không tự đồng bộ giữa các thiết bị.

@@ -1,7 +1,7 @@
 import {embedUrl} from './videos.js';
 
-export function renderPhat({videos, selectedId, esc}) {
-  const selected=videos.find(video=>video.id===selectedId)||videos[0];
+export function renderPhat({videos, selectedId, sharedVideo, esc}) {
+  const selected=videos.find(video=>video.id===selectedId)||(sharedVideo?.id===selectedId?sharedVideo:null)||videos[0];
   return selected?`<div class="video-only"><section class="video-stage ${selected.isShort?'is-short':'is-landscape'}" id="video-heading" tabindex="-1" aria-label="Video của Phát"><iframe class="youtube-player" src="${embedUrl(selected)}" title="${esc(selected.title)} — video YouTube" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></section></div>`:
     '<div class="card empty" id="video-heading" tabindex="-1"><p>Chưa có video.</p><button class="button primary" data-action="navigate" data-page="settings">Thêm video trong Cài đặt</button></div>';
 }
