@@ -4,7 +4,7 @@ Website học cá nhân bằng tiếng Việt, tập trung giao tiếp cơ bản
 
 ## Chức năng
 
-- Mục **Tấn Phát** chỉ hiện trình phát YouTube trực tiếp, mặc định video “Cây ami cảnh” (`73qQ6nag6F8`). Thêm video bằng link Shorts/watch/youtu.be, đặt tên, chọn hoặc gỡ video trong **Cài đặt**. Gỡ chỉ xóa mục lưu trên website, không xóa video YouTube. Video mới lưu trên trình duyệt, đi kèm bản sao lưu hiện có; không tự đồng bộ giữa thiết bị.
+- Mục **Tấn Phát** chỉ hiện trình phát YouTube trực tiếp, mặc định [video của Phát](https://www.youtube.com/watch?v=MKsNBLssYyM). Video mặc định cũ được thay khi đọc dữ liệu đã lưu hoặc bản sao lưu; giữ nguyên tiến độ và các video khác. Thêm video bằng link Shorts/watch/youtu.be, đặt tên, chọn hoặc gỡ video trong **Cài đặt**. Gỡ chỉ xóa mục lưu trên website, không xóa video YouTube. Video mới lưu trên trình duyệt, đi kèm bản sao lưu hiện có; không tự đồng bộ giữa thiết bị.
 - Hiệu ứng đại dương gồm vệt nắng, gợn sáng, bọt khí nhỏ và phản sáng trên thẻ chính. Nút **Sóng nước** bật/tắt mà không tải lại trình phát. Tự tắt theo `prefers-reduced-motion`, dừng khi trang bị ẩn và dịu hơn trong mục video.
 - 4 chủ đề tuần, 28 bài: làm quen, sinh hoạt hằng ngày, gọi món, hỏi đường.
 - Thẻ từ có câu ví dụ và lịch ôn 10 phút / 1 / 3 / 7 / 14 / 30 ngày tùy kết quả. Buổi mới ưu tiên tối đa 10 từ đến hạn trước từ mới, có thể bỏ qua. Luyện sớm không làm tăng bậc ôn.

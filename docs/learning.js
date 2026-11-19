@@ -1,5 +1,5 @@
 import { sanitizeSessions } from './study-session.js';
-import { defaultVideos, sanitizeVideos } from './videos.js';
+import { defaultVideos, restoreVideos } from './videos.js';
 /** Pure learning state helpers. Review intervals are product defaults, not a level certificate. */
 const DAY = 86_400_000;
 const PARTS = ['vocab', 'grammar', 'shadow', 'apply'];
@@ -179,7 +179,7 @@ export function sanitizeState(value) {
     history: [...new Set(value.history)],
     attempts: attempts.slice(-180),
     preferences: { rate: preferences.rate, voice: preferences.voice, shadowSupport: ['auto', 'guided', 'balanced', 'independent'].includes(preferences.shadowSupport) ? preferences.shadowSupport : 'auto', oceanMotion: preferences.oceanMotion !== false },
-    videos: sanitizeVideos(value.videos),
+    videos: restoreVideos(value.videos),
     sessions: sanitizeSessions(value.sessions),
     lastPage: ['home', 'weeks', 'vocab', 'grammar', 'shadow', 'settings', 'phat'].includes(value.lastPage) ? value.lastPage : 'home',
     lastBackupAt: isTimestamp(value.lastBackupAt) ? new Date(value.lastBackupAt).toISOString() : null,

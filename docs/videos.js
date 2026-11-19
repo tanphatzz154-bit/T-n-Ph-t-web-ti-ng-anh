@@ -16,7 +16,7 @@ function cleanTitle(value) {
 }
 
 export function defaultVideos() {
-  return [{ id: '73qQ6nag6F8', title: 'Cây ami cảnh', isShort: true }];
+  return [{ id: 'MKsNBLssYyM', title: 'Video của Phát', isShort: false }];
 }
 
 export function parseYouTubeUrl(input) {
@@ -55,6 +55,16 @@ export function sanitizeVideos(value) {
     videos.push({ id: item.id, title: cleanTitle(item.title), isShort: item.isShort === true });
   }
   return videos;
+}
+
+/** Update the retired default in saved libraries without restoring removed videos. */
+export function restoreVideos(value) {
+  const videos = sanitizeVideos(value);
+  const replacement = defaultVideos()[0];
+  const alreadyPresent = videos.some(video => video.id === replacement.id);
+  return videos.flatMap(video => video.id !== '73qQ6nag6F8'
+    ? [video]
+    : alreadyPresent ? [] : [{ ...replacement }]);
 }
 
 export function addVideo(videos, input, title = '') {

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parseYouTubeUrl, defaultVideos, sanitizeVideos, addVideo, embedUrl, watchUrl } from '../docs/videos.js';
 
-const id = '73qQ6nag6F8';
+const id = 'MKsNBLssYyM';
 
 test('accepts common YouTube share formats without carrying query parameters into embeds', () => {
   for (const url of [
@@ -65,7 +65,7 @@ test('library cleaning preserves empty libraries, bounds data, deduplicates and 
   const many = Array.from({ length: 101 }, (_, n) => ({ id: String(n).padStart(11, '0'), title: 'Video', isShort: false }));
   assert.equal(sanitizeVideos(many).length, 100);
   const seed = defaultVideos(); seed[0].title = 'changed'; seed.push({});
-  assert.equal(defaultVideos()[0].title, 'Cây ami cảnh');
+  assert.equal(defaultVideos()[0].title, 'Video của Phát');
   assert.equal(defaultVideos().length, 1);
 });
 

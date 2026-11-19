@@ -134,7 +134,23 @@ test('old backups preserve progress and receive safe defaults for optional addit
   assert.equal(clean.preferences.shadowSupport,'auto');
   assert.equal(clean.lastPage,'home');
   assert.equal(clean.preferences.oceanMotion,true);
-  assert.deepEqual(clean.videos,[{id:'73qQ6nag6F8',title:'Cây ami cảnh',isShort:true}]);
+  assert.deepEqual(clean.videos,[{id:'MKsNBLssYyM',title:'Video của Phát',isShort:false}]);
+});
+
+test('restoring saved progress replaces the retired video without duplicating or resetting user data', () => {
+  const oldVideo = { id: '73qQ6nag6F8', title: 'Cây ami cảnh', isShort: true };
+  const otherVideo = { id: 'abcdefghijk', title: 'My video', isShort: false };
+  const state = markLessonPart(freshState(now), 'w1d1', 'grammar', now);
+  state.vocab.hello = scheduleCard(null, 'good', now);
+  state.lastPage = 'phat';
+  state.videos = [oldVideo, otherVideo];
+  const restored = sanitizeState(JSON.parse(JSON.stringify(state)));
+  assert.deepEqual(restored, { ...state, videos: [...freshState(now).videos, otherVideo] });
+  assert.deepEqual(sanitizeState(restored), restored);
+  assert.deepEqual(state.videos, [oldVideo, otherVideo]);
+  const existingNew = { id: 'MKsNBLssYyM', title: 'Tên đã đặt', isShort: false };
+  state.videos = [oldVideo, otherVideo, existingNew];
+  assert.deepEqual(sanitizeState(state).videos, [otherVideo, existingNew]);
 });
 
 test('video library, its page and motion preference survive backup restore without affecting study progress', () => {
